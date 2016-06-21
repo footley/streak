@@ -7,9 +7,8 @@ class Stamp(models.Model):
     name = models.CharField(max_length=64, unique=True)
     path = models.CharField(max_length=256, unique=True)
 
-    def __init__(self, name, path):
-        self.name = name
-        self.path = path
+    def __str__(self):
+        return '<Stamp %r>' % self.name
 
     def __repr__(self):
         return '<Stamp %r>' % self.name
@@ -19,10 +18,8 @@ class DayStamp(models.Model):
     date = models.DateField(unique=True)
     stamp = models.OneToOneField(Stamp, unique=True)
 
-    def __init__(self, date, stamp):
-        # we discard everything but the date
-        self.date = datetime(date.year, date.month, date.day)
-        self.stamp = stamp
+    def __str__(self):
+        return '<DayStamp %r %r>' % (self.date, self.stamp.name)
 
     def __repr__(self):
         return '<DayStamp %r %r>' % (self.date, self.stamp.name)
@@ -35,7 +32,7 @@ class DayStamp(models.Model):
         """
         first = datetime(year, month, 1)
         last = datetime(year, month, calendar.monthrange(year, month)[1])
-        return DayStamp.objects.filter(date__range = (first, last))
+        return DayStamp.objects.filter(date__range=(first, last))
 
     @staticmethod
     def current_streak(upto=None):
