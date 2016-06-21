@@ -17,7 +17,7 @@ class Stamp(models.Model):
 
 class DayStamp(models.Model):
     date = models.DateField(unique=True)
-    stamp = models.ForeignKey(Stamp, unique=True)
+    stamp = models.OneToOneField(Stamp, unique=True)
 
     def __init__(self, date, stamp):
         # we discard everything but the date
@@ -35,7 +35,7 @@ class DayStamp(models.Model):
         """
         first = datetime(year, month, 1)
         last = datetime(year, month, calendar.monthrange(year, month)[1])
-        return DayStamp.query.filter(DayStamp.date.between(first, last))
+        return DayStamp.objects.filter(date__range = (first, last))
 
     @staticmethod
     def current_streak(upto=None):
