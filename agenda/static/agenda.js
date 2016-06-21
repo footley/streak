@@ -1,3 +1,31 @@
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+var csrftoken = getCookie('csrftoken');
+function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+$.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+    }
+});
+
 var format = function (str, col) {
     col = typeof col === 'object' ? col : Array.prototype.slice.call(arguments, 1);
 
@@ -37,7 +65,7 @@ var Calendar = React.createClass({
       	}
 	},
 	
-	__save: function(stamped) {
+	__save: function(date, stamp, addStamp) {
 		var success = function(){
 			$('#saved').fadeIn( "slow", function() {
 			    $('#saved').fadeOut("slow");
@@ -45,8 +73,12 @@ var Calendar = React.createClass({
 			app.onSaveSuccess();
 		};
 		$.post(
-			'/save' + getMonthUrl(this.state.date), 
-			{'stamped': JSON.stringify(stamped)}, 
+			'/save', 
+			{
+                'date': date,
+                'stamp': stamp,
+                'addStamp': addStamp
+            }, 
 			success, 
 			'json'
 		);
@@ -83,7 +115,7 @@ var Calendar = React.createClass({
   			ids.splice(index, 1);
   		state.stamped[dateToKey(date)] = ids;
     	this.setState(state);
-    	this.__save(state.stamped);
+    	this.__save(dateToKey(date), this.state.selectedStamp.id, (index == -1));
   	},
 	render: function() {
 		var days = [];

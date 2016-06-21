@@ -15,8 +15,18 @@ class Stamp(models.Model):
 
 
 class DayStamp(models.Model):
-    date = models.DateField(unique=True)
-    stamp = models.OneToOneField(Stamp, unique=True)
+    date = models.DateField()
+    stamp = models.ForeignKey(Stamp)
+
+    class Meta:
+        unique_together = ('date', 'stamp')
+
+    @classmethod
+    def create(cls, date, stamp):
+        ds = cls()
+        ds.date = date
+        ds.stamp = stamp
+        return ds
 
     def __str__(self):
         return '<DayStamp %r %r>' % (self.date, self.stamp.name)
