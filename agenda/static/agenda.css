@@ -1,0 +1,172 @@
+body{
+	font-family: Lucida Console, sans-serif;
+	background-color: #272822;
+	color: #F8F8F2;
+}
+
+#saved{
+	position: absolute;
+	display: none;
+}
+
+#yearPicker{
+	width: 700px;
+	text-align: center;
+	padding: 40px;
+	padding-left:250px;
+	font-weight: bold;
+	font-size: 2em;
+}
+
+button{
+	background-color: #272822;
+	color: #F8F8F2;
+	cursor: pointer;
+    border-radius: 3px;
+    border: 2px solid #F8F8F2;
+    margin: 4px;
+}
+
+#yearPicker > .date{
+	display: inline-block;
+	width: 50%;
+	color: #66D9EF;
+}
+
+#stampPallet{
+	width: 180px;
+	margin-top: -40px;
+	padding-left: 40px;
+	font-weight: bold;
+	font-size: 2em;
+	position: absolute;
+	color: #66D9EF;
+}
+
+.notes{
+	font-weight: normal;
+	font-size: 0.5em;
+	color: #66D9EF;
+}
+
+.stamp{
+	display: block;
+	width:60px;
+	height:60px;
+	padding: 3px 0px 3px 3px;
+	margin: 5px 1px 3px 0px;
+}
+
+.stamp.selected{
+	box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+	padding: 3px 0px 3px 3px;
+	margin: 5px 1px 3px 0px;
+	border: 1px solid rgba(81, 203, 238, 1);
+}
+
+#dayHeaders{
+	width: 756px;
+	padding-left:250px;
+}
+
+#dayStamps {
+	position: absolute;
+}
+
+.dayStamp {
+	width:40px;
+	height:40px;
+}
+
+.dayStamp:not(:first-child) {
+	margin-left: -16px;
+}
+
+.dayHeader{
+	font-weight: bold;
+	width: 100px;
+	display: inline-block;
+	padding: 6px;
+	box-sizing: border-box;
+	border: 2px solid #66D9EF;
+	margin: 4px;
+	border-radius: 3px;
+}
+
+#dayBoxes{
+	width: 756px;
+	padding-left:250px;
+}
+
+.day{
+	width: 100px;
+	height: 100px;
+	display: inline-block;
+	padding: 6px;
+	box-sizing: border-box;
+	border: 2px solid #66D9EF;
+	margin: 4px;
+	border-radius: 3px;
+}
+
+.day.today > span {
+	color: #A6E22E;
+}
+
+.day.today{
+	border: 2px solid #A6E22E;
+}
+
+.day.tue:nth-of-type(1){
+	margin-left: 112px;
+}
+
+.day.wed:nth-of-type(1){
+	margin-left: 220px;
+}
+
+.day.thu:nth-of-type(1){
+	margin-left: 328px;
+}
+
+.day.fri:nth-of-type(1){
+	margin-left: 436px;
+}
+
+.day.sat:nth-of-type(1){
+	margin-left: 544px;
+}
+
+.day.sun:nth-of-type(1){
+	margin-left: 652px;
+}
+
+#streakContainer{
+	width: 300px;
+	top: 11px;
+	right: 0;
+	position: absolute;
+	line-height: 12px;
+}
+
+#streak{
+	margin-top: 50px;
+	margin-right: 50px;
+}
+
+.streakTitle{
+	font-weight: bold;
+	font-size: 2em;
+	color: #66D9EF;
+	margin-bottom: 20px;
+}
+
+.streakNum {
+	font-size: 0.6em;
+	margin-left: 12px;
+}
+
+.streakStamp{
+	width: 20px;
+	height: 20px;
+}

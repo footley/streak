@@ -1,0 +1,8 @@
+{
+  "name": "streak",
+  "description": "A simple calendar app",
+  "image": "heroku/python",
+  "repository": "https://github.com/footley/streak",
+  "keywords": ["calendar", "streak" ],
+  "addons": [ "heroku-postgresql" ]
+}

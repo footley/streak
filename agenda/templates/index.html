@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block links %}
+  <link rel="stylesheet" type="text/css" href="{% static "agenda.css" %}">
+{% endblock %}
+
+{% block content %}
+  <div id="saved">Saved...</div>
+  <div id="container"><h1>Loading...</h1></div>
+  <div id="streakContainer"><h1>Loading...</h1></div>
+  
+  <script type="text/babel" src="{% static "agenda.js" %}"></script>
+{% endblock %}
