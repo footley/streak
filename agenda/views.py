@@ -19,11 +19,6 @@ def jsonable_stamps():
 
 
 @login_required
-def streak(request):
-    return JsonResponse({'foo': 'bar'})
-
-
-@login_required
 def index(request):
     return render(request, 'index.html')
 
@@ -61,3 +56,17 @@ def save(request):
         ds = DayStamp.objects.get(date=date, stamp=stamp)
         ds.delete()
     return JsonResponse({})
+
+
+@login_required
+def streak(request):
+    streak = []
+    for ds in DayStamp.current_streak():
+        streak.append({
+            'img': os.path.join('static/', ds.stamp.path),
+        })
+    v = {
+        'stamps': jsonable_stamps(),
+        'streak': streak,
+    }
+    return JsonResponse(v)

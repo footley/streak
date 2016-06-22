@@ -50,11 +50,8 @@ class DayStamp(models.Model):
         gets the current streak back from the provided date (default today)
         """
         if upto is None:
-            upto = datetime.today()
-        all_ds = DayStamp.query         \
-            .filter(DayStamp.date < upto)   \
-            .order_by(DayStamp.date.desc()) \
-            .all()
+            upto = datetime.today().date()
+        all_ds = DayStamp.objects.filter(date__lte=upto).order_by('-date')
 
         current = []
         last = None
