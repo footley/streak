@@ -28,7 +28,7 @@ def month(request, year, month):
     year = int(year)
     month = int(month)
     stamped = {}
-    for ds in DayStamp.month_query(year, month).all():
+    for ds in DayStamp.month_query(request.user, year, month).all():
         key = '{0.year}-{0.month}-{0.day}'.format(ds.date)
         if key not in stamped:
             stamped[key] = []
@@ -50,10 +50,10 @@ def save(request):
     addStamp = request.POST['addStamp']
 
     if addStamp.lower() in ['true', '1']:
-        ds = DayStamp.create(date, stamp)
+        ds = DayStamp.create(request.user, date, stamp)
         ds.save()
     else:
-        ds = DayStamp.objects.get(date=date, stamp=stamp)
+        ds = DayStamp.objects.get(user=request.user, date=date, stamp=stamp)
         ds.delete()
     return JsonResponse({})
 
@@ -61,7 +61,7 @@ def save(request):
 @login_required
 def streak(request):
     streak = []
-    for ds in DayStamp.current_streak():
+    for ds in DayStamp.current_streak(request.user):
         streak.append({
             'img': os.path.join('static/', ds.stamp.path),
         })
