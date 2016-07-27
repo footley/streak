@@ -67,8 +67,10 @@ var Calendar = React.createClass({
 	
 	__save: function(date, stamp, addStamp) {
 		var success = function(){
-			$('#saved').fadeIn( "slow", function() {
-			    $('#saved').fadeOut("slow");
+			$('#'+date).fadeIn( "slow", function() {
+				setTimeout( function() {
+			    	$('#'+date).fadeOut("slow");
+				}, 1000);
 			});
 			app.onSaveSuccess();
 		};
@@ -180,6 +182,7 @@ var Day = React.createClass({
 		return (
 			<div className={classes} onClick={this.handleStamp}>
 				{this.props.date.getDate()}
+				<img src="static/saved.gif" id={dateToKey(this.props.date)} className="saveIcn"></img>
 				<div id="dayStamps">{imgNodes}</div>
 			</div>
 		);

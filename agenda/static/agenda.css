@@ -4,9 +4,9 @@ body{
 	color: #F8F8F2;
 }
 
-#saved{
-	position: absolute;
+.saveIcn{
 	display: none;
+	padding-left: 4px;
 }
 
 #yearPicker{
