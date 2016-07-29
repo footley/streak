@@ -66,24 +66,30 @@ var Calendar = React.createClass({
 	},
 	
 	__save: function(date, stamp, addStamp) {
-		var success = function(){
-			$('#'+date).fadeIn( "slow", function() {
-				setTimeout( function() {
-			    	$('#'+date).fadeOut("slow");
-				}, 1000);
-			});
-			app.onSaveSuccess();
-		};
+		
+		$('#'+date).fadeIn("slow");
+
 		$.post(
 			'/save', 
 			{
                 'date': date,
                 'stamp': stamp,
                 'addStamp': addStamp
-            }, 
-			success, 
-			'json'
-		);
+            })
+			.done( function(msg) { 
+				$('#'+date).fadeOut("slow");
+			})
+			.fail( function(xhr, textStatus, errorThrown) {
+				$('#'+date)
+					.fadeOut("slow")
+					.after('<div class="error">Woops! Please Refresh and try again.</div>');
+		    	if(console && console.log)
+		    	{
+		    		console.log(xhr.responseText);
+		    		console.log(textStatus);
+		    		console.log(errorThrown);
+		    	}
+		    });
 	},
 	getInitialState: function() {
 		var now = new Date();

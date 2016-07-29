@@ -9,6 +9,17 @@ body{
 	padding-left: 4px;
 }
 
+.error{
+	position: fixed;
+	z-index: 1;
+	color: white;
+	font-weight: bold;
+	border: 2px solid #8E2323;
+	border-radius: 3px;
+	background: #8E2323;
+	padding: 6px;
+}
+
 #yearPicker{
 	width: 700px;
 	text-align: center;
